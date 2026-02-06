@@ -1,0 +1,55 @@
+{
+  "sections": [
+    {
+      "name": "Armor",
+      "tag": "ARMOR",
+      "items": [
+        {
+          "id": "cloak-of-billowing",
+          "name": "Cloak of Billowing",
+          "price": 50,
+          "inStock": true,
+          "img": "assets/items/Cloak of Billowing.png"
+        }
+      ]
+    },
+    {
+      "name": "Weapons",
+      "tag": "WEAPON",
+      "items": [
+        {
+          "id": "sunforger",
+          "name": "Sunforger",
+          "price": 50,
+          "inStock": true,
+          "img": "assets/items/Sunforger.png"
+        }
+      ]
+    },
+    {
+      "name": "Consumables",
+      "tag": "CONSUMABLE",
+      "items": []
+    },
+    {
+      "name": "Miscellaneous",
+      "tag": "MISC",
+      "items": [
+        
+      ]
+    },
+    {
+      "name": "Bargain Bin",
+      "tag": "BARGAIN BIN",
+      "items": [
+        {
+          "id": "bag-of-withholding",
+          "name": "Bag of Withholding",
+          "price": 300,
+          "inStock": true,
+          "img": "assets/items/Bag of Withholding.png"
+        }
+    ]
+    }
+  ]
+}

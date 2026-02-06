@@ -1,0 +1,15 @@
+{
+  "desc": [
+    "This bag looks and functions exactly like a normal **Bag of Holding**, with double the interior capacity of up to **1000 pounds** and **128 cubic feet**.",
+
+    "This capacity comes at a cost: the **Bag of Withholding** feels unappreciated and won’t open unless reassured.",
+
+    "When attempting to retrieve any item, the player must succeed on a **DC 14 Persuasion check**, or the bag clamps shut. Each failure increases the DC by **1**. Success grants access for **1 minute** and resets the DC to **14**. The DC always resets to **14 at dawn**.",
+
+    "**Summary:**",
+    "• Base DC **14** Persuasion check to retrieve items",
+    "• Each failed attempt increases the DC by **1**",
+    "• Success grants access for **1 minute**",
+    "• DC always resets to **14 at dawn**"
+  ]
+}

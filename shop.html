@@ -5,6 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Shop</title>
   <style>
+    #modalNote strong {
+  color: #d4af37;
+}
+
+#modalNote em {
+  color: #e8eaf0;
+  opacity: 0.9;
+}
+
+    #modalNote { white-space: pre-line; }
+
     :root{
       --bg: #0f1115;
       --panel: #171a21;
@@ -291,6 +302,33 @@
     @media (max-width: 780px){
       .modal-body{ grid-template-columns: 1fr; }
     }
+
+    .mute-btn{
+  position: fixed;
+  right: 14px;
+  bottom: 14px;
+  width: 42px;
+  height: 42px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: rgba(0,0,0,0.22);
+  color: var(--text);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  box-shadow: var(--shadow);
+  opacity: 0.75;
+}
+
+.mute-btn:hover{
+  opacity: 1;
+  border-color: rgba(212,175,55,0.7);
+}
+
+.mute-btn:active{
+  transform: translateY(1px);
+}
+
   </style>
 </head>
 <body>
@@ -298,6 +336,8 @@
     <header>
       <h1>Town Shop</h1>
       <p class="sub">Click a category to open it. Click an item to view details.</p>
+     
+
     </header>
 
     <div id="shopGrid" class="grid"></div>
@@ -338,152 +378,12 @@
       </div>
     </div>
   </div>
+<button id="muteBtn" class="mute-btn" type="button" aria-pressed="false" title="Mute music">
+  🔊
+</button>
 
  <script>
   const DEFAULT_IMAGE = "assets/placeholder.png";
-
-  const shopData = [
-    {
-      name: "Armor",
-      tag: "ARMOR",
-      items: [
-        {
-          name: "Cloak of Billowing",
-          price: 50,
-          stock: "In stock",
-          img: "assets/items/cloak.png",
-          desc: "While wearing this cloak, you can use a bonus action to make it billow dramatically for 1 minute."
-        },
-        {
-          name: "Item 2",
-          price: 300,
-          stock: "In stock",
-          img: "assets/placeholder.png",
-          desc: "Description goes here."
-        },
-        {
-          name: "Item 3",
-          price: 150,
-          stock: "In stock",
-          img: "assets/placeholder.png",
-          desc: "Description goes here."
-        }
-      ]
-    },
-    {
-      name: "Weapons",
-      tag: "WEAPON",
-      items: [
-        {
-          name: "Cloak of Billowing",
-          price: 50,
-          stock: "In stock",
-          img: "assets/items/cloak.png",
-          desc: "While wearing this cloak, you can use a bonus action to make it billow dramatically for 1 minute."
-        },
-        {
-          name: "Item 2",
-          price: 300,
-          stock: "In stock",
-          img: "assets/placeholder.png",
-          desc: "Description goes here."
-        },
-        {
-          name: "Item 3",
-          price: 150,
-          stock: "In stock",
-          img: "assets/placeholder.png",
-          desc: "Description goes here."
-        }
-      ]
-    },
-     {
-      name: "Consumables",
-      tag: "CONSUMABLE",
-      items: [
-        {
-          name: "Cloak of Billowing",
-          price: 50,
-          stock: "In stock",
-          img: "assets/items/cloak.png",
-          desc: "While wearing this cloak, you can use a bonus action to make it billow dramatically for 1 minute."
-        },
-        {
-          name: "Item 2",
-          price: 300,
-          stock: "In stock",
-          img: "assets/placeholder.png",
-          desc: "Description goes here."
-        },
-        {
-          name: "Item 3",
-          price: 150,
-          stock: "In stock",
-          img: "assets/placeholder.png",
-          desc: "Description goes here."
-        }
-      ]
-    },
-     {
-      name: "Miscellaneous",
-      tag: "MISC",
-      items: [
-        {
-          name: "Cloak of Billowing",
-          price: 50,
-          stock: "In stock",
-          img: "assets/items/cloak.png",
-          desc: "While wearing this cloak, you can use a bonus action to make it billow dramatically for 1 minute."
-        },
-        {
-          name: "Item 2",
-          price: 300,
-          stock: "In stock",
-          img: "assets/placeholder.png",
-          desc: "Description goes here."
-        },
-        {
-          name: "Item 3",
-          price: 150,
-          stock: "In stock",
-          img: "assets/placeholder.png",
-          desc: "Description goes here."
-        }
-      ]
-    },
-     {
-      name: "Bargain Bin",
-      tag: "BARGAIN BIN",
-      items: [
-        {
-          name: "Cloak of Billowing",
-          price: 50,
-          stock: "In stock",
-          img: "assets/items/cloak.png",
-          desc: "While wearing this cloak, you can use a bonus action to make it billow dramatically for 1 minute."
-        },
-        {
-  name: "Bag of Withholding",
-  price: 300,
-  stock: "In stock",
-  img: "assets/items/Bag of Withholding.png",
-  desc: `This bag looks and functions exactly like a normal Bag of Holding, with double the interior capacity of up to 1000 pounds and 128 cubic feet.
-This capacity comes at a cost, as a Bag of Withholding feels unappreciated, because players only want to talk to it when they want something. The bag must be reassured of its value and importance in order to open up to release any item contained inside.
-When attempting to retrieve any item in the Bag of Withholding, the player must succeed on a DC 14 persuasion check, or the bag will shut more tightly.
-Each failure increases the DC of the next check by 1. Successfully convincing the Bag of its importance will allow access for 1 minute, resetting the DC to 14 thereafter.
-Regardless of the DC at the end of the day, the DC resets to 14 the following dawn, as the Bag of Withholding has had a chance to reconsider its feelings over the course of the night.`
-},
-,
-        {
-          name: "Item 3",
-          price: 150,
-          stock: "In stock",
-          img: "assets/placeholder.png",
-          desc: "Description goes here."
-        }
-      ]
-    },
-  ];
 
   const grid = document.getElementById("shopGrid");
   const backdrop = document.getElementById("backdrop");
@@ -494,29 +394,74 @@ Regardless of the DC at the end of the day, the DC resets to 14 the following da
   const modalCategory = document.getElementById("modalCategory");
   const modalPrice = document.getElementById("modalPrice");
   const modalStock = document.getElementById("modalStock");
-
-  // We’ll reuse the existing note area to show the item description
   const modalNote = document.getElementById("modalNote");
+
+// --- Shop music (autostart on first interaction + mute toggle) ---
+const music = new Audio("assets/music/shop.mp3");
+music.loop = true;
+music.volume = 0.25;
+
+const muteBtn = document.getElementById("muteBtn");
+let isMuted = false;
+
+// Optional: remember mute state
+try {
+  isMuted = localStorage.getItem("shopMuted") === "true";
+} catch {}
+
+function updateMuteUI(){
+  muteBtn.textContent = isMuted ? "🔇" : "🔊";
+  muteBtn.setAttribute("aria-pressed", String(isMuted));
+}
+
+function applyMute(){
+  music.muted = isMuted;
+  updateMuteUI();
+}
+
+muteBtn.addEventListener("click", async () => {
+  isMuted = !isMuted;
+  try { localStorage.setItem("shopMuted", String(isMuted)); } catch {}
+  applyMute();
+
+  // If they unmute and music hasn’t started yet, try starting it now
+  if (!isMuted && music.paused) {
+    try { await music.play(); } catch {}
+  }
+});
+
+applyMute();
+
+// Closest possible to autoplay: start immediately after first interaction
+let musicStarted = false;
+
+async function startMusicOnFirstInteraction() {
+  if (musicStarted) return;
+  if (isMuted) return; // don’t start if muted
+
+  try {
+    await music.play();
+    musicStarted = true;
+  } catch {
+    musicStarted = false;
+  }
+}
+
+["click", "keydown", "touchstart"].forEach(evt => {
+  document.addEventListener(evt, startMusicOnFirstInteraction, { once: true });
+});
+
+
+
+
+  function formatText(str) {
+  return str
+    .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+    .replace(/\*(.+?)\*/g, "<em>$1</em>");
+}
 
   function formatGold(n){
     return `${n} gp`;
-  }
-
-  function openModal(categoryName, item){
-    modalTitle.textContent = item.name;
-    modalCategory.textContent = categoryName;
-    modalPrice.textContent = formatGold(item.price);
-    modalStock.textContent = item.stock || "In stock";
-
-    // Per-item image with fallback
-    modalImg.src = item.img || DEFAULT_IMAGE;
-
-    // Per-item description with fallback
-    modalNote.textContent = item.desc || "No description provided.";
-
-    backdrop.style.display = "flex";
-    backdrop.setAttribute("aria-hidden", "false");
-    closeBtn.focus();
   }
 
   function closeModal(){
@@ -524,10 +469,53 @@ Regardless of the DC at the end of the day, the DC resets to 14 the following da
     backdrop.setAttribute("aria-hidden", "true");
   }
 
-  function render(){
+  async function loadItemDesc(itemId){
+    // Each item uses: data/items/<id>.json
+    const url = `data/items/${itemId}.json`;
+    try {
+      const res = await fetch(url, { cache: "no-store" });
+      if (!res.ok) return null;
+      const data = await res.json();
+      return data.desc || null;
+    } catch {
+      return null;
+    }
+  }
+
+  async function openModal(categoryName, item){
+    modalTitle.textContent = item.name;
+    modalCategory.textContent = categoryName;
+    modalPrice.textContent = formatGold(item.price);
+    modalStock.textContent = item.inStock ? "In stock" : "Out of stock";
+    modalImg.src = item.img || DEFAULT_IMAGE;
+
+    modalNote.textContent = "Loading description...";
+    const desc = await loadItemDesc(item.id);
+if (Array.isArray(desc)) {
+modalNote.innerHTML = desc
+  .map(p => formatText(p))
+  .join("<br><br>");
+
+} else {
+  modalNote.textContent = desc || "No description file found for this item.";
+}
+
+    backdrop.style.display = "flex";
+    backdrop.setAttribute("aria-hidden", "false");
+    closeBtn.focus();
+  }
+
+  function render(sections){
     grid.innerHTML = "";
 
-    shopData.forEach(section => {
+    sections.forEach(section => {
+      // Only include items that are in stock
+      const inStockItems = (section.items || []).filter(i => i && i.inStock);
+
+      // If a whole section has zero in-stock items, we can hide it completely.
+      // If you want empty sections visible, remove this if-block.
+      if (inStockItems.length === 0) return;
+
       const details = document.createElement("details");
       details.className = "section";
 
@@ -542,7 +530,7 @@ Regardless of the DC at the end of the day, the DC resets to 14 the following da
 
       const count = document.createElement("div");
       count.className = "section-count";
-      count.textContent = `${section.items.length} items`;
+      count.textContent = `${inStockItems.length} items`;
 
       const tag = document.createElement("span");
       tag.className = "tag";
@@ -550,7 +538,7 @@ Regardless of the DC at the end of the day, the DC resets to 14 the following da
 
       left.appendChild(title);
       left.appendChild(count);
-      left.appendChild(tag);
+     // left.appendChild(tag);
 
       const chev = document.createElement("div");
       chev.className = "chev";
@@ -579,7 +567,7 @@ Regardless of the DC at the end of the day, the DC resets to 14 the following da
 
       const tbody = document.createElement("tbody");
 
-      section.items.forEach(item => {
+      inStockItems.forEach(item => {
         const tr = document.createElement("tr");
 
         const tdName = document.createElement("td");
@@ -610,6 +598,17 @@ Regardless of the DC at the end of the day, the DC resets to 14 the following da
     });
   }
 
+  async function init(){
+    try {
+      const res = await fetch("data/shop-stock.json", { cache: "no-store" });
+      const data = await res.json();
+      render(data.sections || []);
+    } catch (e) {
+      grid.innerHTML = "<p style='color:#ffb4b4'>Failed to load shop-stock.json</p>";
+      console.error(e);
+    }
+  }
+
   backdrop.addEventListener("click", (e) => {
     if (e.target === backdrop) closeModal();
   });
@@ -620,8 +619,9 @@ Regardless of the DC at the end of the day, the DC resets to 14 the following da
     if (e.key === "Escape" && backdrop.style.display === "flex") closeModal();
   });
 
-  render();
+  init();
 </script>
+
 
 </body>
 </html>
