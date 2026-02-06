@@ -339,185 +339,289 @@
     </div>
   </div>
 
-  <script>
-    const PLACEHOLDER_IMAGE = "assets/placeholder.png";
+ <script>
+  const DEFAULT_IMAGE = "assets/placeholder.png";
 
-    const shopData = [
-      {
-        name: "Armor",
-        tag: "ARMOR",
-        items: [
-          { name: "Item 1", price: 200, stock: "In stock" },
-          { name: "Item 2", price: 300, stock: "In stock" },
-          { name: "Item 3", price: 150, stock: "In stock" }
-        ]
-      },
-      {
-        name: "Weapons",
-        tag: "WEAPONS",
-        items: [
-          { name: "Item 1", price: 200, stock: "In stock" },
-          { name: "Item 2", price: 300, stock: "In stock" },
-          { name: "Item 3", price: 150, stock: "In stock" }
-        ]
-      },
-      {
-        name: "Consumables",
-        tag: "CONSUMABLES",
-        items: [
-          { name: "Item 1", price: 200, stock: "In stock" },
-          { name: "Item 2", price: 300, stock: "In stock" },
-          { name: "Item 3", price: 150, stock: "In stock" }
-        ]
-      },
-      {
-        name: "Other",
-        tag: "OTHER",
-        items: [
-          { name: "Item 1", price: 200, stock: "In stock" },
-          { name: "Item 2", price: 300, stock: "In stock" },
-          { name: "Item 3", price: 150, stock: "In stock" }
-        ]
-      },
-      {
-        name: "Bargain Bin",
-        tag: "BARGAIN",
-        items: [
-          { name: "Item 1", price: 200, stock: "Limited" },
-          { name: "Item 2", price: 300, stock: "Limited" },
-          { name: "Item 3", price: 150, stock: "Limited" }
-        ]
-      }
-    ];
+  const shopData = [
+    {
+      name: "Armor",
+      tag: "ARMOR",
+      items: [
+        {
+          name: "Cloak of Billowing",
+          price: 50,
+          stock: "In stock",
+          img: "assets/items/cloak.png",
+          desc: "While wearing this cloak, you can use a bonus action to make it billow dramatically for 1 minute."
+        },
+        {
+          name: "Item 2",
+          price: 300,
+          stock: "In stock",
+          img: "assets/placeholder.png",
+          desc: "Description goes here."
+        },
+        {
+          name: "Item 3",
+          price: 150,
+          stock: "In stock",
+          img: "assets/placeholder.png",
+          desc: "Description goes here."
+        }
+      ]
+    },
+    {
+      name: "Weapons",
+      tag: "WEAPON",
+      items: [
+        {
+          name: "Cloak of Billowing",
+          price: 50,
+          stock: "In stock",
+          img: "assets/items/cloak.png",
+          desc: "While wearing this cloak, you can use a bonus action to make it billow dramatically for 1 minute."
+        },
+        {
+          name: "Item 2",
+          price: 300,
+          stock: "In stock",
+          img: "assets/placeholder.png",
+          desc: "Description goes here."
+        },
+        {
+          name: "Item 3",
+          price: 150,
+          stock: "In stock",
+          img: "assets/placeholder.png",
+          desc: "Description goes here."
+        }
+      ]
+    },
+     {
+      name: "Consumables",
+      tag: "CONSUMABLE",
+      items: [
+        {
+          name: "Cloak of Billowing",
+          price: 50,
+          stock: "In stock",
+          img: "assets/items/cloak.png",
+          desc: "While wearing this cloak, you can use a bonus action to make it billow dramatically for 1 minute."
+        },
+        {
+          name: "Item 2",
+          price: 300,
+          stock: "In stock",
+          img: "assets/placeholder.png",
+          desc: "Description goes here."
+        },
+        {
+          name: "Item 3",
+          price: 150,
+          stock: "In stock",
+          img: "assets/placeholder.png",
+          desc: "Description goes here."
+        }
+      ]
+    },
+     {
+      name: "Miscellaneous",
+      tag: "MISC",
+      items: [
+        {
+          name: "Cloak of Billowing",
+          price: 50,
+          stock: "In stock",
+          img: "assets/items/cloak.png",
+          desc: "While wearing this cloak, you can use a bonus action to make it billow dramatically for 1 minute."
+        },
+        {
+          name: "Item 2",
+          price: 300,
+          stock: "In stock",
+          img: "assets/placeholder.png",
+          desc: "Description goes here."
+        },
+        {
+          name: "Item 3",
+          price: 150,
+          stock: "In stock",
+          img: "assets/placeholder.png",
+          desc: "Description goes here."
+        }
+      ]
+    },
+     {
+      name: "Bargain Bin",
+      tag: "BARGAIN BIN",
+      items: [
+        {
+          name: "Cloak of Billowing",
+          price: 50,
+          stock: "In stock",
+          img: "assets/items/cloak.png",
+          desc: "While wearing this cloak, you can use a bonus action to make it billow dramatically for 1 minute."
+        },
+        {
+  name: "Bag of Withholding",
+  price: 300,
+  stock: "In stock",
+  img: "assets/items/Bag of Withholding.png",
+  desc: `This bag looks and functions exactly like a normal Bag of Holding, with double the interior capacity of up to 1000 pounds and 128 cubic feet.
+This capacity comes at a cost, as a Bag of Withholding feels unappreciated, because players only want to talk to it when they want something. The bag must be reassured of its value and importance in order to open up to release any item contained inside.
+When attempting to retrieve any item in the Bag of Withholding, the player must succeed on a DC 14 persuasion check, or the bag will shut more tightly.
+Each failure increases the DC of the next check by 1. Successfully convincing the Bag of its importance will allow access for 1 minute, resetting the DC to 14 thereafter.
+Regardless of the DC at the end of the day, the DC resets to 14 the following dawn, as the Bag of Withholding has had a chance to reconsider its feelings over the course of the night.`
+},
+,
+        {
+          name: "Item 3",
+          price: 150,
+          stock: "In stock",
+          img: "assets/placeholder.png",
+          desc: "Description goes here."
+        }
+      ]
+    },
+  ];
 
-    const grid = document.getElementById("shopGrid");
-    const backdrop = document.getElementById("backdrop");
-    const closeBtn = document.getElementById("closeBtn");
+  const grid = document.getElementById("shopGrid");
+  const backdrop = document.getElementById("backdrop");
+  const closeBtn = document.getElementById("closeBtn");
 
-    const modalTitle = document.getElementById("modalTitle");
-    const modalImg = document.getElementById("modalImg");
-    const modalCategory = document.getElementById("modalCategory");
-    const modalPrice = document.getElementById("modalPrice");
-    const modalStock = document.getElementById("modalStock");
+  const modalTitle = document.getElementById("modalTitle");
+  const modalImg = document.getElementById("modalImg");
+  const modalCategory = document.getElementById("modalCategory");
+  const modalPrice = document.getElementById("modalPrice");
+  const modalStock = document.getElementById("modalStock");
 
-    function formatGold(n){
-      return `${n} gp`;
-    }
+  // We’ll reuse the existing note area to show the item description
+  const modalNote = document.getElementById("modalNote");
 
-    function openModal(categoryName, item){
-      modalTitle.textContent = item.name;
-      modalCategory.textContent = categoryName;
-      modalPrice.textContent = formatGold(item.price);
-      modalStock.textContent = item.stock || "In stock";
-      modalImg.src = PLACEHOLDER_IMAGE;
+  function formatGold(n){
+    return `${n} gp`;
+  }
 
-      backdrop.style.display = "flex";
-      backdrop.setAttribute("aria-hidden", "false");
-      closeBtn.focus();
-    }
+  function openModal(categoryName, item){
+    modalTitle.textContent = item.name;
+    modalCategory.textContent = categoryName;
+    modalPrice.textContent = formatGold(item.price);
+    modalStock.textContent = item.stock || "In stock";
 
-    function closeModal(){
-      backdrop.style.display = "none";
-      backdrop.setAttribute("aria-hidden", "true");
-    }
+    // Per-item image with fallback
+    modalImg.src = item.img || DEFAULT_IMAGE;
 
-    function render(){
-      grid.innerHTML = "";
+    // Per-item description with fallback
+    modalNote.textContent = item.desc || "No description provided.";
 
-      shopData.forEach(section => {
-        const details = document.createElement("details");
-        details.className = "section";
+    backdrop.style.display = "flex";
+    backdrop.setAttribute("aria-hidden", "false");
+    closeBtn.focus();
+  }
 
-        const summary = document.createElement("summary");
+  function closeModal(){
+    backdrop.style.display = "none";
+    backdrop.setAttribute("aria-hidden", "true");
+  }
 
-        const left = document.createElement("div");
-        left.className = "summary-left";
+  function render(){
+    grid.innerHTML = "";
 
-        const title = document.createElement("div");
-        title.className = "section-title";
-        title.textContent = section.name;
+    shopData.forEach(section => {
+      const details = document.createElement("details");
+      details.className = "section";
 
-        const count = document.createElement("div");
-        count.className = "section-count";
-        count.textContent = `${section.items.length} items`;
+      const summary = document.createElement("summary");
 
-        const tag = document.createElement("span");
-        tag.className = "tag";
-        tag.textContent = section.tag;
+      const left = document.createElement("div");
+      left.className = "summary-left";
 
-        left.appendChild(title);
-        left.appendChild(count);
-        left.appendChild(tag);
+      const title = document.createElement("div");
+      title.className = "section-title";
+      title.textContent = section.name;
 
-        const chev = document.createElement("div");
-        chev.className = "chev";
-        chev.innerHTML = `
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        `;
+      const count = document.createElement("div");
+      count.className = "section-count";
+      count.textContent = `${section.items.length} items`;
 
-        summary.appendChild(left);
-        summary.appendChild(chev);
+      const tag = document.createElement("span");
+      tag.className = "tag";
+      tag.textContent = section.tag;
 
-        const itemsWrap = document.createElement("div");
-        itemsWrap.className = "items";
+      left.appendChild(title);
+      left.appendChild(count);
+      left.appendChild(tag);
 
-        const table = document.createElement("table");
-        table.className = "table";
+      const chev = document.createElement("div");
+      chev.className = "chev";
+      chev.innerHTML = `
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      `;
 
-        const thead = document.createElement("thead");
-        thead.innerHTML = `
-          <tr>
-            <th>Item</th>
-            <th class="price">Price</th>
-          </tr>
-        `;
+      summary.appendChild(left);
+      summary.appendChild(chev);
 
-        const tbody = document.createElement("tbody");
+      const itemsWrap = document.createElement("div");
+      itemsWrap.className = "items";
 
-        section.items.forEach(item => {
-          const tr = document.createElement("tr");
+      const table = document.createElement("table");
+      table.className = "table";
 
-          const tdName = document.createElement("td");
-          const btn = document.createElement("button");
-          btn.type = "button";
-          btn.className = "item-btn";
-          btn.textContent = item.name;
-          btn.addEventListener("click", () => openModal(section.name, item));
-          tdName.appendChild(btn);
+      const thead = document.createElement("thead");
+      thead.innerHTML = `
+        <tr>
+          <th>Item</th>
+          <th class="price">Price</th>
+        </tr>
+      `;
 
-          const tdPrice = document.createElement("td");
-          tdPrice.className = "price";
-          tdPrice.textContent = formatGold(item.price);
+      const tbody = document.createElement("tbody");
 
-          tr.appendChild(tdName);
-          tr.appendChild(tdPrice);
-          tbody.appendChild(tr);
-        });
+      section.items.forEach(item => {
+        const tr = document.createElement("tr");
 
-        table.appendChild(thead);
-        table.appendChild(tbody);
-        itemsWrap.appendChild(table);
+        const tdName = document.createElement("td");
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "item-btn";
+        btn.textContent = item.name;
+        btn.addEventListener("click", () => openModal(section.name, item));
+        tdName.appendChild(btn);
 
-        details.appendChild(summary);
-        details.appendChild(itemsWrap);
+        const tdPrice = document.createElement("td");
+        tdPrice.className = "price";
+        tdPrice.textContent = formatGold(item.price);
 
-        grid.appendChild(details);
+        tr.appendChild(tdName);
+        tr.appendChild(tdPrice);
+        tbody.appendChild(tr);
       });
-    }
 
-    backdrop.addEventListener("click", (e) => {
-      if (e.target === backdrop) closeModal();
+      table.appendChild(thead);
+      table.appendChild(tbody);
+      itemsWrap.appendChild(table);
+
+      details.appendChild(summary);
+      details.appendChild(itemsWrap);
+
+      grid.appendChild(details);
     });
+  }
 
-    closeBtn.addEventListener("click", closeModal);
+  backdrop.addEventListener("click", (e) => {
+    if (e.target === backdrop) closeModal();
+  });
 
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && backdrop.style.display === "flex") closeModal();
-    });
+  closeBtn.addEventListener("click", closeModal);
 
-    render();
-  </script>
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && backdrop.style.display === "flex") closeModal();
+  });
+
+  render();
+</script>
+
 </body>
 </html>
