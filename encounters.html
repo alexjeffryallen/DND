@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Random Encounter</title>
+  <style>
+    body { background:#111; color:#eee; font-family:sans-serif; padding:2rem; }
+    button { padding:0.5rem 1rem; font-size:1rem; }
+  </style>
+</head>
+<body>
+
+<h1>🎲 Random Encounter</h1>
+<button onclick="roll()">Roll Encounter</button>
+<p id="result"></p>
+
+<script>
+const encounters = [
+  "2d4 Goblins",
+  "Traveling Merchant",
+  "Abandoned Camp",
+  "Bandit Ambush",
+  "Lost Child",
+  "Owlbear Tracks"
+];
+
+function roll() {
+  const pick = encounters[Math.floor(Math.random() * encounters.length)];
+  document.getElementById("result").textContent = pick;
+}
+</script>
+
+</body>
+</html>
