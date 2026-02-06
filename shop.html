@@ -1,0 +1,523 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Shop</title>
+  <style>
+    :root{
+      --bg: #0f1115;
+      --panel: #171a21;
+      --panel2: #1f2430;
+      --text: #e8eaf0;
+      --muted: #b7bdc9;
+      --border: rgba(255,255,255,0.12);
+      --shadow: 0 16px 40px rgba(0,0,0,0.45);
+      --radius: 14px;
+      --accent: #d4af37;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body{
+      margin: 0;
+      background: radial-gradient(1200px 700px at 40% 0%, #1a1f2b 0%, var(--bg) 60%, #0a0c10 100%);
+      color: var(--text);
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+
+    .wrap{
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 28px 16px 48px;
+    }
+
+    header{
+      margin-bottom: 18px;
+      padding: 18px 18px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    h1{
+      margin: 0 0 6px;
+      font-size: 28px;
+      letter-spacing: 0.2px;
+    }
+    .sub{
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .grid{
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    details.section{
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    details.section > summary{
+      list-style: none;
+      cursor: pointer;
+      padding: 14px 16px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      user-select: none;
+    }
+    details.section > summary::-webkit-details-marker{ display:none; }
+
+    .summary-left{
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .section-title{
+      font-weight: 700;
+      font-size: 16px;
+      letter-spacing: 0.2px;
+    }
+
+    .section-count{
+      font-size: 12px;
+      color: var(--muted);
+      padding: 2px 8px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: rgba(0,0,0,0.18);
+      white-space: nowrap;
+    }
+
+    .chev{
+      width: 28px;
+      height: 28px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      display: grid;
+      place-items: center;
+      background: rgba(0,0,0,0.18);
+      flex: 0 0 auto;
+    }
+    details[open] .chev{
+      transform: rotate(180deg);
+      transition: transform 180ms ease;
+    }
+    details:not([open]) .chev{
+      transition: transform 180ms ease;
+    }
+
+    .items{
+      padding: 6px 10px 12px;
+    }
+
+    .table{
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: rgba(0,0,0,0.18);
+    }
+
+    .table thead th{
+      text-align: left;
+      font-size: 12px;
+      letter-spacing: 0.6px;
+      color: var(--muted);
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(255,255,255,0.03);
+    }
+
+    .table tbody td{
+      padding: 10px 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      font-size: 14px;
+    }
+
+    .table tbody tr:last-child td{
+      border-bottom: none;
+    }
+
+    .item-btn{
+      width: 100%;
+      text-align: left;
+      background: transparent;
+      border: none;
+      color: var(--text);
+      font: inherit;
+      padding: 0;
+      cursor: pointer;
+    }
+
+    .item-btn:hover{
+      text-decoration: underline;
+      text-decoration-color: rgba(212,175,55,0.7);
+    }
+
+    .price{
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+
+    .tag{
+      display: inline-block;
+      font-size: 11px;
+      letter-spacing: 0.4px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      background: rgba(0,0,0,0.18);
+      white-space: nowrap;
+    }
+
+    /* Modal */
+    .modal-backdrop{
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.62);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      z-index: 50;
+    }
+
+    .modal{
+      width: min(860px, 100%);
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .modal-head{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px;
+      background: rgba(255,255,255,0.04);
+      border-bottom: 1px solid var(--border);
+      gap: 12px;
+    }
+
+    .modal-title{
+      margin: 0;
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: 0.2px;
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .close-btn{
+      border: 1px solid var(--border);
+      background: rgba(0,0,0,0.20);
+      color: var(--text);
+      border-radius: 10px;
+      padding: 8px 10px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .close-btn:hover{ border-color: rgba(212,175,55,0.7); }
+
+    .modal-body{
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 14px;
+      padding: 14px;
+      background: var(--panel2);
+    }
+
+    .preview{
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      background: rgba(0,0,0,0.18);
+    }
+    .preview img{
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .info{
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px 12px;
+      background: rgba(0,0,0,0.18);
+    }
+
+    .info-row{
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .info-row:last-child{ border-bottom: none; }
+
+    .label{ color: var(--muted); font-size: 12px; letter-spacing: 0.5px; }
+    .value{ font-size: 14px; font-weight: 650; }
+
+    .note{
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    @media (max-width: 780px){
+      .modal-body{ grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Town Shop</h1>
+      <p class="sub">Click a category to open it. Click an item to view details.</p>
+    </header>
+
+    <div id="shopGrid" class="grid"></div>
+  </div>
+
+  <div id="backdrop" class="modal-backdrop" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-head">
+        <h2 id="modalTitle" class="modal-title">Item</h2>
+        <button id="closeBtn" class="close-btn" type="button">Close</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="preview">
+          <img id="modalImg" src="assets/placeholder.png" alt="Item image" />
+        </div>
+
+        <div class="info">
+          <div class="info-row">
+            <div class="label">Category</div>
+            <div id="modalCategory" class="value"></div>
+          </div>
+
+          <div class="info-row">
+            <div class="label">Price</div>
+            <div id="modalPrice" class="value"></div>
+          </div>
+
+          <div class="info-row">
+            <div class="label">Stock</div>
+            <div id="modalStock" class="value"></div>
+          </div>
+
+          <div class="note" id="modalNote">
+            Placeholder image is being used for all items. Replace per-item images later if you want.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const PLACEHOLDER_IMAGE = "assets/placeholder.png";
+
+    const shopData = [
+      {
+        name: "Armor",
+        tag: "ARMOR",
+        items: [
+          { name: "Item 1", price: 200, stock: "In stock" },
+          { name: "Item 2", price: 300, stock: "In stock" },
+          { name: "Item 3", price: 150, stock: "In stock" }
+        ]
+      },
+      {
+        name: "Weapons",
+        tag: "WEAPONS",
+        items: [
+          { name: "Item 1", price: 200, stock: "In stock" },
+          { name: "Item 2", price: 300, stock: "In stock" },
+          { name: "Item 3", price: 150, stock: "In stock" }
+        ]
+      },
+      {
+        name: "Consumables",
+        tag: "CONSUMABLES",
+        items: [
+          { name: "Item 1", price: 200, stock: "In stock" },
+          { name: "Item 2", price: 300, stock: "In stock" },
+          { name: "Item 3", price: 150, stock: "In stock" }
+        ]
+      },
+      {
+        name: "Other",
+        tag: "OTHER",
+        items: [
+          { name: "Item 1", price: 200, stock: "In stock" },
+          { name: "Item 2", price: 300, stock: "In stock" },
+          { name: "Item 3", price: 150, stock: "In stock" }
+        ]
+      },
+      {
+        name: "Bargain Bin",
+        tag: "BARGAIN",
+        items: [
+          { name: "Item 1", price: 200, stock: "Limited" },
+          { name: "Item 2", price: 300, stock: "Limited" },
+          { name: "Item 3", price: 150, stock: "Limited" }
+        ]
+      }
+    ];
+
+    const grid = document.getElementById("shopGrid");
+    const backdrop = document.getElementById("backdrop");
+    const closeBtn = document.getElementById("closeBtn");
+
+    const modalTitle = document.getElementById("modalTitle");
+    const modalImg = document.getElementById("modalImg");
+    const modalCategory = document.getElementById("modalCategory");
+    const modalPrice = document.getElementById("modalPrice");
+    const modalStock = document.getElementById("modalStock");
+
+    function formatGold(n){
+      return `${n} gp`;
+    }
+
+    function openModal(categoryName, item){
+      modalTitle.textContent = item.name;
+      modalCategory.textContent = categoryName;
+      modalPrice.textContent = formatGold(item.price);
+      modalStock.textContent = item.stock || "In stock";
+      modalImg.src = PLACEHOLDER_IMAGE;
+
+      backdrop.style.display = "flex";
+      backdrop.setAttribute("aria-hidden", "false");
+      closeBtn.focus();
+    }
+
+    function closeModal(){
+      backdrop.style.display = "none";
+      backdrop.setAttribute("aria-hidden", "true");
+    }
+
+    function render(){
+      grid.innerHTML = "";
+
+      shopData.forEach(section => {
+        const details = document.createElement("details");
+        details.className = "section";
+
+        const summary = document.createElement("summary");
+
+        const left = document.createElement("div");
+        left.className = "summary-left";
+
+        const title = document.createElement("div");
+        title.className = "section-title";
+        title.textContent = section.name;
+
+        const count = document.createElement("div");
+        count.className = "section-count";
+        count.textContent = `${section.items.length} items`;
+
+        const tag = document.createElement("span");
+        tag.className = "tag";
+        tag.textContent = section.tag;
+
+        left.appendChild(title);
+        left.appendChild(count);
+        left.appendChild(tag);
+
+        const chev = document.createElement("div");
+        chev.className = "chev";
+        chev.innerHTML = `
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        `;
+
+        summary.appendChild(left);
+        summary.appendChild(chev);
+
+        const itemsWrap = document.createElement("div");
+        itemsWrap.className = "items";
+
+        const table = document.createElement("table");
+        table.className = "table";
+
+        const thead = document.createElement("thead");
+        thead.innerHTML = `
+          <tr>
+            <th>Item</th>
+            <th class="price">Price</th>
+          </tr>
+        `;
+
+        const tbody = document.createElement("tbody");
+
+        section.items.forEach(item => {
+          const tr = document.createElement("tr");
+
+          const tdName = document.createElement("td");
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "item-btn";
+          btn.textContent = item.name;
+          btn.addEventListener("click", () => openModal(section.name, item));
+          tdName.appendChild(btn);
+
+          const tdPrice = document.createElement("td");
+          tdPrice.className = "price";
+          tdPrice.textContent = formatGold(item.price);
+
+          tr.appendChild(tdName);
+          tr.appendChild(tdPrice);
+          tbody.appendChild(tr);
+        });
+
+        table.appendChild(thead);
+        table.appendChild(tbody);
+        itemsWrap.appendChild(table);
+
+        details.appendChild(summary);
+        details.appendChild(itemsWrap);
+
+        grid.appendChild(details);
+      });
+    }
+
+    backdrop.addEventListener("click", (e) => {
+      if (e.target === backdrop) closeModal();
+    });
+
+    closeBtn.addEventListener("click", closeModal);
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && backdrop.style.display === "flex") closeModal();
+    });
+
+    render();
+  </script>
+</body>
+</html>
