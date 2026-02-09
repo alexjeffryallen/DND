@@ -328,6 +328,56 @@
 .mute-btn:active{
   transform: translateY(1px);
 }
+.admin-input{
+  width: 100%;
+  padding: 10px 10px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: rgba(0,0,0,0.18);
+  color: var(--text);
+  outline: none;
+}
+.admin-input:focus{
+  border-color: rgba(212,175,55,0.7);
+}
+.admin-row{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+@media (max-width: 780px){
+  .admin-row{ grid-template-columns: 1fr; }
+}
+.small-muted{ color: var(--muted); font-size: 12px; line-height: 1.35; }
+.admin-list{
+  max-height: 360px;
+  overflow:auto;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px;
+  background: rgba(0,0,0,0.18);
+}
+.admin-item{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.admin-item:last-child{ border-bottom:none; }
+/* Make ADMIN modals smaller + single-column */
+.modal.admin-mode{
+  width: min(720px, 96vw);
+}
+
+.modal.admin-mode .modal-body{
+  grid-template-columns: 1fr;
+}
+
+.modal.admin-mode .preview{
+  display: none;
+}
 
   </style>
 </head>
@@ -337,6 +387,16 @@
       <h1>Town Shop</h1>
       <p class="sub">Click a category to open it. Click an item to view details.</p>
      
+      <!-- ADMIN (hidden unless ?admin=letmein) -->
+<div id="adminBar" style="display:none; margin-top:12px; padding-top:10px; border-top:1px solid rgba(255,255,255,0.12);">
+  <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+    <span class="tag">ADMIN MODE</span>
+    <button id="adminAddBtn" class="close-btn" type="button">➕ Add Item</button>
+    <button id="adminStockBtn" class="close-btn" type="button">📦 Manage Stock</button>
+    <span style="color:var(--muted); font-size:12px;">Tip: this mode is only visible with <code>?admin=...</code></span>
+  </div>
+</div>
+
 
     </header>
 
@@ -465,9 +525,12 @@ async function startMusicOnFirstInteraction() {
   }
 
   function closeModal(){
-    backdrop.style.display = "none";
-    backdrop.setAttribute("aria-hidden", "true");
-  }
+  const modalEl = backdrop.querySelector(".modal");
+  modalEl.classList.remove("admin-mode"); // ✅ back to normal
+  backdrop.style.display = "none";
+  backdrop.setAttribute("aria-hidden", "true");
+}
+
 
   async function loadItemDesc(itemId){
     // Each item uses: data/items/<id>.json
@@ -619,7 +682,279 @@ modalNote.innerHTML = desc
     if (e.key === "Escape" && backdrop.style.display === "flex") closeModal();
   });
 
+
+  // =======================
+// ADMIN MODE (hidden)
+// Unlock by visiting: shop.html?admin=letmein
+// =======================
+const ADMIN_CODE = "letmein"; // <- change this to something only you know
+
+let shopData = null; // will hold the loaded JSON so admin can edit it
+
+function isAdminUnlocked(){
+  const params = new URLSearchParams(location.search);
+  return params.get("admin") === ADMIN_CODE;
+}
+
+function downloadTextFile(filename, text, mime="application/json"){
+  const blob = new Blob([text], { type: mime });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+}
+
+function slugifyId(name){
+  return name
+    .toLowerCase()
+    .trim()
+    .replace(/['"]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+function ensureUniqueId(baseId, sections){
+  let id = baseId || "new-item";
+  const used = new Set();
+  (sections || []).forEach(s => (s.items || []).forEach(i => used.add(i.id)));
+  if (!used.has(id)) return id;
+  let n = 2;
+  while (used.has(`${id}-${n}`)) n++;
+  return `${id}-${n}`;
+}
+
+function getSectionByName(name){
+  return (shopData.sections || []).find(s => s.name === name) || null;
+}
+
+function showAdminBar(){
+  const adminBar = document.getElementById("adminBar");
+  if (!adminBar) return;
+  adminBar.style.display = "block";
+
+  document.getElementById("adminAddBtn").addEventListener("click", openAdminAddModal);
+  document.getElementById("adminStockBtn").addEventListener("click", openAdminStockModal);
+}
+
+function openAdminModal(title, html){
+  const modalEl = backdrop.querySelector(".modal");
+  modalEl.classList.add("admin-mode"); // ✅ shrink + 1-column
+
+  modalTitle.textContent = title;
+  modalImg.src = DEFAULT_IMAGE;
+  modalCategory.textContent = "";
+  modalPrice.textContent = "";
+  modalStock.textContent = "";
+  modalNote.innerHTML = html;
+
+  backdrop.style.display = "flex";
+  backdrop.setAttribute("aria-hidden", "false");
+  closeBtn.focus();
+}
+
+
+function openAdminAddModal(){
+  const sectionOptions = (shopData.sections || [])
+    .map(s => `<option value="${s.name}">${s.name}</option>`)
+    .join("");
+
+  openAdminModal("Admin: Add Item", `
+    <div class="small-muted" style="margin-bottom:10px;">
+      This will generate downloads for <b>data/shop-stock.json</b> and <b>data/items/&lt;id&gt;.json</b>.
+      Then you drag them into your repo and push.
+    </div>
+
+    <div class="admin-row">
+      <div>
+        <div class="label">Item Name</div>
+        <input id="a_name" class="admin-input" placeholder="Cloak of Billowing" />
+      </div>
+      <div>
+        <div class="label">Price (gp)</div>
+        <input id="a_price" class="admin-input" type="number" min="0" step="1" placeholder="50" />
+      </div>
+    </div>
+
+    <div class="admin-row" style="margin-top:10px;">
+      <div>
+        <div class="label">Category</div>
+        <select id="a_section" class="admin-input">${sectionOptions}</select>
+      </div>
+      <div>
+        <div class="label">In Stock?</div>
+        <label style="display:flex; gap:10px; align-items:center; margin-top:6px;">
+          <input id="a_instock" type="checkbox" checked />
+          <span class="value">Yes</span>
+        </label>
+      </div>
+    </div>
+
+    <div style="margin-top:10px;">
+      <div class="label">Image path (relative)</div>
+      <input id="a_img" class="admin-input" placeholder="assets/items/My Item.png" />
+      <div class="small-muted" style="margin-top:6px;">
+        Put the actual image in your repo at that path. Your current items use <code>assets/items/...</code>. :contentReference[oaicite:3]{index=3}
+      </div>
+    </div>
+
+    <div style="margin-top:10px;">
+      <div class="label">Description (separate paragraphs with blank lines)</div>
+      <textarea id="a_desc" class="admin-input" rows="8" placeholder="First paragraph...
+
+Second paragraph..."></textarea>
+      <div class="small-muted" style="margin-top:6px;">
+        This becomes <code>data/items/&lt;id&gt;.json</code> (your shop loads it when you click the item). :contentReference[oaicite:4]{index=4}
+      </div>
+    </div>
+
+    <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:12px;">
+      <button id="a_generate" class="close-btn" type="button">Generate Downloads</button>
+    </div>
+
+    <div id="a_result" class="small-muted" style="margin-top:10px;"></div>
+  `);
+
+  document.getElementById("a_generate").addEventListener("click", () => {
+    const name = document.getElementById("a_name").value.trim();
+    const price = Number(document.getElementById("a_price").value);
+    const sectionName = document.getElementById("a_section").value;
+    const inStock = document.getElementById("a_instock").checked;
+    const img = document.getElementById("a_img").value.trim();
+    const descRaw = document.getElementById("a_desc").value;
+
+    const result = document.getElementById("a_result");
+
+    if (!name) { result.textContent = "❌ Please enter a name."; return; }
+    if (!Number.isFinite(price) || price < 0) { result.textContent = "❌ Please enter a valid price."; return; }
+
+    const baseId = slugifyId(name);
+    const id = ensureUniqueId(baseId, shopData.sections);
+
+    const section = getSectionByName(sectionName);
+    if (!section) { result.textContent = "❌ Could not find that category."; return; }
+    if (!Array.isArray(section.items)) section.items = [];
+
+    const newItem = {
+      id,
+      name,
+      price,
+      inStock,
+      img: img || DEFAULT_IMAGE
+    };
+
+    section.items.push(newItem);
+
+    // Build description JSON file (array of paragraphs)
+    const paragraphs = descRaw
+      .split(/\n\s*\n/g)
+      .map(s => s.trim())
+      .filter(Boolean);
+
+    const itemDescJson = JSON.stringify({ desc: paragraphs.length ? paragraphs : ["(No description yet.)"] }, null, 2);
+
+    // Download updated shop-stock.json
+    const shopJson = JSON.stringify(shopData, null, 2);
+    downloadTextFile("shop-stock.json", shopJson);
+
+    // Download item description file
+    downloadTextFile(`${id}.json`, itemDescJson);
+
+    result.innerHTML = `
+      ✅ Downloads started.<br>
+      1) Replace <b>data/shop-stock.json</b> with the downloaded <b>shop-stock.json</b><br>
+      2) Save the downloaded <b>${id}.json</b> into <b>data/items/</b><br>
+      3) Put your image file in <b>${(img || DEFAULT_IMAGE)}</b> (or update the path)<br>
+      Then commit + push.
+    `;
+  });
+}
+
+function openAdminStockModal(){
+  // Build a flat list of all items
+  const items = [];
+  (shopData.sections || []).forEach(section => {
+    (section.items || []).forEach(item => {
+      items.push({ section: section.name, item });
+    });
+  });
+
+  const rows = items.map(({section, item}) => `
+    <div class="admin-item">
+      <div style="min-width:0;">
+        <div class="value" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${item.name}</div>
+        <div class="small-muted">${section} • <code>${item.id}</code></div>
+      </div>
+      <button class="close-btn" type="button" data-toggle-id="${item.id}">
+        ${item.inStock ? "Mark Out of Stock" : "Mark In Stock"}
+      </button>
+    </div>
+  `).join("");
+
+  openAdminModal("Admin: Manage Stock", `
+    <div class="small-muted" style="margin-bottom:10px;">
+      Toggle stock status, then download an updated <b>shop-stock.json</b>.
+      (Your page already hides out-of-stock items.) :contentReference[oaicite:5]{index=5}
+    </div>
+
+    <div class="admin-list">${rows || "<div class='small-muted'>(No items found.)</div>"}</div>
+
+    <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:12px;">
+      <button id="s_download" class="close-btn" type="button">Download Updated shop-stock.json</button>
+    </div>
+
+    <div id="s_result" class="small-muted" style="margin-top:10px;"></div>
+  `);
+
+  // Toggle handlers
+  document.querySelectorAll("[data-toggle-id]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const id = btn.getAttribute("data-toggle-id");
+      let found = null;
+      (shopData.sections || []).forEach(section => {
+        (section.items || []).forEach(item => {
+          if (item.id === id) found = item;
+        });
+      });
+      if (!found) return;
+
+      found.inStock = !found.inStock;
+      btn.textContent = found.inStock ? "Mark Out of Stock" : "Mark In Stock";
+      document.getElementById("s_result").textContent = `✅ Updated ${found.name} → ${found.inStock ? "In stock" : "Out of stock"}`;
+    });
+  });
+
+  document.getElementById("s_download").addEventListener("click", () => {
+    const shopJson = JSON.stringify(shopData, null, 2);
+    downloadTextFile("shop-stock.json", shopJson);
+    document.getElementById("s_result").textContent = "✅ Download started. Replace data/shop-stock.json and push.";
+  });
+}
+
+// Hook into your existing init() so we can keep a copy of the JSON for admin editing
+const _origInit = init;
+init = async function(){
+  try {
+    const res = await fetch("data/shop-stock.json", { cache: "no-store" });
+    shopData = await res.json();
+
+    // Normal render
+    render(shopData.sections || []);
+
+    // Admin bar
+    if (isAdminUnlocked()){
+      showAdminBar();
+    }
+  } catch (e) {
+    grid.innerHTML = "<p style='color:#ffb4b4'>Failed to load shop-stock.json</p>";
+    console.error(e);
+  }
+};
   init();
+
 </script>
 
 

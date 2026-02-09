@@ -29,14 +29,20 @@
     {
       "name": "Consumables",
       "tag": "CONSUMABLE",
-      "items": []
+      "items": [
+        {
+          "id": "potion-of-healing",
+          "name": "Potion of Healing",
+          "price": 75,
+          "inStock": true,
+          "img": "assets/items/Potion of Healing.png"
+        }
+      ]
     },
     {
       "name": "Miscellaneous",
       "tag": "MISC",
-      "items": [
-        
-      ]
+      "items": []
     },
     {
       "name": "Bargain Bin",
@@ -49,7 +55,7 @@
           "inStock": true,
           "img": "assets/items/Bag of Withholding.png"
         }
-    ]
+      ]
     }
   ]
 }
