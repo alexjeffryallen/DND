@@ -10,6 +10,27 @@
           "price": 50,
           "inStock": true,
           "img": "assets/items/Cloak of Billowing.png"
+        },
+        {
+          "id": "adamantine-armor",
+          "name": "Adamantine Armor",
+          "price": 500,
+          "inStock": true,
+          "img": "assets/items/Adamantine Armor.png"
+        },
+        {
+          "id": "adamantine-shield",
+          "name": "Adamantine Shield",
+          "price": 400,
+          "inStock": true,
+          "img": "assets/items/adamantine shield.png"
+        },
+        {
+          "id": "sentinel-shield",
+          "name": "Sentinel Shield",
+          "price": 400,
+          "inStock": true,
+          "img": "assets/items/Sentinel Shield.png"
         }
       ]
     },
@@ -43,13 +64,28 @@
           "price": 75,
           "inStock": true,
           "img": "assets/items/Potion of Healing.png"
+        },
+        {
+          "id": "thessaltoxin-antidote",
+          "name": "Thessaltoxin Antidote",
+          "price": 200,
+          "inStock": true,
+          "img": "assets/itmes/Thessaltoxin Antidote.png"
         }
       ]
     },
     {
       "name": "Miscellaneous",
       "tag": "MISC",
-      "items": []
+      "items": [
+        {
+          "id": "map",
+          "name": "Map",
+          "price": 20000,
+          "inStock": true,
+          "img": "assets/itmes/Map.png"
+        }
+      ]
     },
     {
       "name": "Bargain Bin",
