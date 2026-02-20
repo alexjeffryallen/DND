@@ -1,0 +1,8 @@
+{
+  "desc": [
+    "This container has 10 mints, 2 for each type of breath attack.",
+    "Someone can eat one as a bonus action and immediately cast a breath weapon attack based on the mint eaten.",
+    "If the user has draconic ancestry, they can instead choose any spell based on the element eaten, at the DM's discretion.",
+    "*HEARTBURN:* after declaring your attack, immediately make a constitution save DC 17. On a failed save, you become the center of the spell."
+  ]
+}

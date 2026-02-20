@@ -71,6 +71,20 @@
           "price": 200,
           "inStock": true,
           "img": "assets/itmes/Thessaltoxin Antidote.png"
+        },
+        {
+          "id": "dragons-breath-mints",
+          "name": "Dragon's Breath Mints",
+          "price": 300,
+          "inStock": true,
+          "img": "assets/items/Dragon's Breath Mints.png"
+        },
+        {
+          "id": "spell-scroll-of-respeccing",
+          "name": "Spell Scroll of Respeccing",
+          "price": 150,
+          "inStock": true,
+          "img": "assets/items/Spell Scroll.png"
         }
       ]
     },
@@ -84,6 +98,34 @@
           "price": 20000,
           "inStock": true,
           "img": "assets/itmes/Map.png"
+        },
+        {
+          "id": "coin-of-being-extra-sneaky",
+          "name": "Coin of Being Extra Sneaky",
+          "price": 200,
+          "inStock": true,
+          "img": "assets/items/Coin of Being Extra Sneaky.png"
+        },
+        {
+          "id": "green-flame-amulet",
+          "name": "Green-Flame Amulet",
+          "price": 300,
+          "inStock": true,
+          "img": "assets/items/Green-Flame Amulet.png"
+        },
+        {
+          "id": "ring-of-disorganized-spell-storing",
+          "name": "Ring of Disorganized Spell Storing",
+          "price": 300,
+          "inStock": true,
+          "img": "assets/items/Ring of Disorganized Spell Storing"
+        },
+        {
+          "id": "the-deck-of-daddy-things",
+          "name": "The Deck of Daddy Things",
+          "price": 5000,
+          "inStock": true,
+          "img": "assets/items/The Deck of Daddy Things.png"
         }
       ]
     },
@@ -97,6 +139,20 @@
           "price": 300,
           "inStock": true,
           "img": "assets/items/Bag of Withholding.png"
+        },
+        {
+          "id": "boots-of-blinding-speed",
+          "name": "Boots of Blinding Speed",
+          "price": 500,
+          "inStock": true,
+          "img": "assets/items/Boots of Blinding Speed.png"
+        },
+        {
+          "id": "son-forger",
+          "name": "Son Forger",
+          "price": 50,
+          "inStock": true,
+          "img": "assets/items/Son Forger.png"
         }
       ]
     }

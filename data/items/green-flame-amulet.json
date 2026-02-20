@@ -1,0 +1,6 @@
+{
+  "desc": [
+    "Someone that is attuned to this amulet can choose any additional targets within 15 feet of another target for any spell involving green flames. The user must make a dexterity saving throw based on the number of targets being declared after the base spell's targets. If the saving throw fails, the spell backfires and deals a D8 of fire damage for every target declared to the attacker.",
+    "Dex saving throw DC is equal to 2 plus 5 times the number of targets."
+  ]
+}
