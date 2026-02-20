@@ -43,7 +43,7 @@
           "name": "Sunforger",
           "price": 50,
           "inStock": true,
-          "img": "assets/items/sunforger.png"
+          "img": "assets/items/sun_forger.png"
         },
         {
           "id": "crashing-tide-hammer",
