@@ -9,28 +9,28 @@
           "name": "Cloak of Billowing",
           "price": 50,
           "inStock": true,
-          "img": "assets/items/Cloak of Billowing.png"
+          "img": "assets/items/cloak_of_billowing.png"
         },
         {
           "id": "adamantine-armor",
           "name": "Adamantine Armor",
           "price": 500,
           "inStock": true,
-          "img": "assets/items/Adamantine Armor.png"
+          "img": "assets/items/adamantine_armor.png"
         },
         {
           "id": "adamantine-shield",
           "name": "Adamantine Shield",
           "price": 400,
           "inStock": true,
-          "img": "assets/items/adamantine shield.png"
+          "img": "assets/items/adamantine_shield.png"
         },
         {
           "id": "sentinel-shield",
           "name": "Sentinel Shield",
           "price": 400,
           "inStock": true,
-          "img": "assets/items/Sentinel Shield.png"
+          "img": "assets/items/sentinel_shield.png"
         }
       ]
     },
@@ -43,14 +43,14 @@
           "name": "Sunforger",
           "price": 50,
           "inStock": true,
-          "img": "assets/items/Sunforger.png"
+          "img": "assets/items/sunforger.png"
         },
         {
           "id": "crashing-tide-hammer",
           "name": "Crashing Tide Hammer",
           "price": 600,
           "inStock": true,
-          "img": "assets/items/Crashing Tide Hammer.png"
+          "img": "assets/items/crashing_tide_hammer.png"
         }
       ]
     },
@@ -63,28 +63,28 @@
           "name": "Potion of Healing",
           "price": 75,
           "inStock": true,
-          "img": "assets/items/Potion of Healing.png"
+          "img": "assets/items/potion_of_healing.png"
         },
         {
           "id": "thessaltoxin-antidote",
           "name": "Thessaltoxin Antidote",
           "price": 200,
           "inStock": true,
-          "img": "assets/itmes/Thessaltoxin Antidote.png"
+          "img": "assets/items/thessaltoxin_antidote.png"
         },
         {
           "id": "dragons-breath-mints",
           "name": "Dragon's Breath Mints",
           "price": 300,
           "inStock": true,
-          "img": "assets/items/Dragon's Breath Mints.png"
+          "img": "assets/items/dragons_breath_mints.png"
         },
         {
           "id": "spell-scroll-of-respeccing",
           "name": "Spell Scroll of Respeccing",
           "price": 150,
           "inStock": true,
-          "img": "assets/items/Spell Scroll.png"
+          "img": "assets/items/spell_scroll.png"
         }
       ]
     },
@@ -97,35 +97,35 @@
           "name": "Map",
           "price": 20000,
           "inStock": true,
-          "img": "assets/itmes/Map.png"
+          "img": "assets/items/map.png"
         },
         {
           "id": "coin-of-being-extra-sneaky",
           "name": "Coin of Being Extra Sneaky",
           "price": 200,
           "inStock": true,
-          "img": "assets/items/Coin of Being Extra Sneaky.png"
+          "img": "assets/items/coin_of_being_extra_sneaky.png"
         },
         {
           "id": "green-flame-amulet",
           "name": "Green-Flame Amulet",
           "price": 300,
           "inStock": true,
-          "img": "assets/items/Green-Flame Amulet.png"
+          "img": "assets/items/green_flame_amulet.png"
         },
         {
           "id": "ring-of-disorganized-spell-storing",
           "name": "Ring of Disorganized Spell Storing",
           "price": 300,
           "inStock": true,
-          "img": "assets/items/Ring of Disorganized Spell Storing"
+          "img": "assets/items/ring_of_disorganized_spell_storing.png"
         },
         {
           "id": "the-deck-of-daddy-things",
           "name": "The Deck of Daddy Things",
           "price": 5000,
           "inStock": true,
-          "img": "assets/items/The Deck of Daddy Things.png"
+          "img": "assets/items/the_deck_of_daddy_things.png"
         }
       ]
     },
@@ -138,21 +138,21 @@
           "name": "Bag of Withholding",
           "price": 300,
           "inStock": true,
-          "img": "assets/items/Bag of Withholding.png"
+          "img": "assets/items/bag_of_withholding.png"
         },
         {
           "id": "boots-of-blinding-speed",
           "name": "Boots of Blinding Speed",
           "price": 500,
           "inStock": true,
-          "img": "assets/items/Boots of Blinding Speed.png"
+          "img": "assets/items/boots_of_blinding_speed.png"
         },
         {
           "id": "son-forger",
           "name": "Son Forger",
           "price": 50,
           "inStock": true,
-          "img": "assets/items/Son Forger.png"
+          "img": "assets/items/son_forger.png"
         }
       ]
     }
