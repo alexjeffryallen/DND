@@ -7,14 +7,14 @@
         {
           "id": "cloak-of-billowing",
           "name": "Cloak of Billowing",
-          "price": 50,
+          "price": 25,
           "inStock": true,
           "img": "assets/items/cloak_of_billowing.png"
         },
         {
           "id": "adamantine-armor",
           "name": "Adamantine Armor",
-          "price": 500,
+          "price": 400,
           "inStock": true,
           "img": "assets/items/adamantine_armor.png"
         },
@@ -41,14 +41,14 @@
         {
           "id": "sunforger",
           "name": "Sunforger",
-          "price": 50,
+          "price": 500,
           "inStock": true,
           "img": "assets/items/sun_forger.png"
         },
         {
           "id": "crashing-tide-hammer",
           "name": "Crashing Tide Hammer",
-          "price": 600,
+          "price": 450,
           "inStock": true,
           "img": "assets/items/crashing_tide_hammer.png"
         }
@@ -61,14 +61,14 @@
         {
           "id": "potion-of-healing",
           "name": "Potion of Healing",
-          "price": 75,
+          "price": 20,
           "inStock": true,
           "img": "assets/items/potion_of_healing.png"
         },
         {
           "id": "thessaltoxin-antidote",
           "name": "Thessaltoxin Antidote",
-          "price": 200,
+          "price": 100,
           "inStock": true,
           "img": "assets/items/thessaltoxin_antidote.png"
         },
@@ -114,16 +114,9 @@
           "img": "assets/items/green-flame_amulet.png"
         },
         {
-          "id": "ring-of-disorganized-spell-storing",
-          "name": "Ring of Disorganized Spell Storing",
-          "price": 300,
-          "inStock": true,
-          "img": "assets/items/ring_of_disorganized_spell_storing.png"
-        },
-        {
           "id": "the-deck-of-daddy-things",
           "name": "The Deck of Daddy Things",
-          "price": 5000,
+          "price": 2500,
           "inStock": true,
           "img": "assets/items/the_deck_of_daddy_things.png"
         }
@@ -143,9 +136,16 @@
         {
           "id": "boots-of-blinding-speed",
           "name": "Boots of Blinding Speed",
-          "price": 500,
+          "price": 200,
           "inStock": true,
           "img": "assets/items/boots_of_blinding_speed.png"
+        },
+        {
+          "id": "ring-of-disorganized-spell-storing",
+          "name": "Ring of Disorganized Spell Storing",
+          "price": 200,
+          "inStock": true,
+          "img": "assets/items/ring_of_disorganized_spell_storing.png"
         },
         {
           "id": "son-forger",
