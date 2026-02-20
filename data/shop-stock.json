@@ -77,7 +77,7 @@
           "name": "Dragon's Breath Mints",
           "price": 300,
           "inStock": true,
-          "img": "assets/items/dragons_breath_mints.png"
+          "img": "assets/items/dragon's_breath_mints.png"
         },
         {
           "id": "spell-scroll-of-respeccing",
@@ -111,7 +111,7 @@
           "name": "Green-Flame Amulet",
           "price": 300,
           "inStock": true,
-          "img": "assets/items/green_flame_amulet.png"
+          "img": "assets/items/green-flame_amulet.png"
         },
         {
           "id": "ring-of-disorganized-spell-storing",
